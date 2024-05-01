@@ -1,6 +1,6 @@
 # Project Management Dashboard
 
-![Dashboard Preview](https://i.ibb.co/mc4hhpn/Screenshot-3232.png)
+![Dashboard Preview](https://i.ibb.co/kSXqqZL/Screenshot-3232.png)
 
 ## Project Overview
 
