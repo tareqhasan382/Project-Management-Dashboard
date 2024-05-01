@@ -5,7 +5,7 @@ import { authOptions } from "./app/api/auth/[...nextauth]/route";
 
 const PrivateRoute = async ({ children }) => {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/login");
+  if (!session) redirect("/sign-in");
   return children;
 };
 

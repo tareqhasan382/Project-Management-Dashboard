@@ -1,81 +1,90 @@
+import { toast } from "react-toastify";
 import { create } from "zustand";
-
+// '2024-05-14'
 const store = (set) => ({
   tasks: [
     {
-      title:
-        "In publishing and graphic design, Lorem ipsum is a placeholder text1",
+      title: "Task A",
+      content:
+        "<p>Tareq In publishing and graphic design, Lorem ipsum is a placeholder text1</p>",
       state: "PLANED",
+      dueDate: "2024-04-25",
+      id: 1,
     },
     {
-      title:
-        "In publishing and graphic design, Lorem ipsum is a placeholder text2",
-      state: "ONGOING",
-    },
-    {
-      title:
-        "In publishing and graphic design, Lorem ipsum is a placeholder text3",
-      state: "DONE",
-    },
-    {
-      title:
-        "In publishing and graphic design, Lorem ipsum is a placeholder text4",
+      title: "Task B",
+      content:
+        "<p>Tareq In publishing and graphic design, Lorem ipsum is a placeholder text1</p>",
       state: "PLANED",
+      dueDate: "2024-05-10",
+      id: 2,
     },
     {
-      title:
-        "In publishing and graphic design, Lorem ipsum is a placeholder text5",
-      state: "ONGOING",
-    },
-    {
-      title:
-        "In publishing and graphic design, Lorem ipsum is a placeholder text6",
+      title: "Task C",
+      content:
+        "<p>Tareq In publishing and graphic design, Lorem ipsum is a placeholder text1</p>",
       state: "DONE",
+      dueDate: "2024-05-05",
+      id: 3,
+    },
+    {
+      title: "Task D",
+      content:
+        "<p>Tareq In publishing and graphic design, Lorem ipsum is a placeholder text1</p>",
+      state: "ONGOING",
+      dueDate: "02-04-2024",
+      id: 4,
+    },
+    {
+      title: "Task E",
+      content:
+        "<p>Tareq In publishing and graphic design, Lorem ipsum is a placeholder text1</p>",
+      state: "ONGOING",
+      dueDate: "02-04-2024",
+      id: 5,
+    },
+    {
+      title: "Task F",
+      content:
+        "<p>Tareq In publishing and graphic design, Lorem ipsum is a placeholder text1</p>",
+      state: "DONE",
+      dueDate: "02-04-2024",
+      id: 6,
     },
   ],
   dragTask: null,
   addTask: (data) => {
-    set((state) => ({ tasks: [...state.tasks, data] })), alert("Created Task");
+    set((state) => ({ tasks: [...state.tasks, data] })),
+      toast.success("Created Task");
+  },
+  editTask: (id, newData) => {
+    set((state) => ({
+      tasks: state.tasks.map((task) =>
+        task.id === id ? { ...task, ...newData } : task
+      ),
+    }));
+    toast.success("Updated Task");
   },
   deleteTask: (data) => {
     set((state) => ({
-      tasks: state.tasks.filter((task) => task.title !== data.title),
+      tasks: state.tasks.filter((task) => task.id !== data),
     }));
-    alert("Deleted Task");
+    toast.success("Deleted Task");
   },
-  setDragTask: (title) => set({ dragTask: title }),
-  moveTask: (title, status) => {
+  setDragTask: (id) => set({ dragTask: id }),
+  moveTask: (id, status) => {
     set((state) => ({
       tasks: state.tasks.map((task) =>
-        task.title === title ? { ...task, state: status } : task
+        task.id === id ? { ...task, state: status } : task
       ),
     }));
   },
-  // moveTask: (title, status) =>
-  //   set((state) => ({
-  //     tasks: [
-  //       {
-  //         title:
-  //           "In publishing and graphic design, Lorem ipsum is a placeholder text1",
-  //         state: "DONE",
-  //       },
-  //     ],
-  //   })),
+  setTasks: (mockData) => {
+    set((state) => ({ ...state, tasks: mockData }));
+    console.log("mockData:", mockData);
+  },
+  searchQuery: "",
+  setSearchQuery: (query) => set({ searchQuery: query }),
 });
 
 export const dataStore = create(store);
-/*
-const cart = useCart();
- [
-        state.tasks.map((task) =>
-          task.title === title ? { title, status } : task
-        ),
-      ],
-=======================
- addTask: (data) => {
-    const { title, state } = data;
-    const currentTask = get().tasks;
-    set({ tasks: [...currentTask, { title, state }] });
-    alert("Task added");
-  },
-*/

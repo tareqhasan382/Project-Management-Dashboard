@@ -1,21 +1,19 @@
 "use client"
 import { dataStore } from '@/store/dataStore';
-import React, { useState } from 'react';
-import Tiptap from './TipTap';
-// dueDate
-const Modal = ({ isOpen, onClose }) => {
- // const [contentError, setContentError] = useState(false);
-  const [content, setContent] = useState("");
-    const {tasks,addTask} = dataStore();
-    // console.log("tasks:",tasks.length+1)
-    //  console.log("content:",content)
-    const [formData, setFormData] = useState({
-        title: '',
-        dueDate: '',
-        state: 'PLANED'
-      });
+import React, { useState } from 'react'
+import EditTipTap from './EditTipTap';
+// import Tiptap from './TipTap';
+
+const EditForm = ({ isOpen, onClose,task }) => {
     
-      const handleChange = (e) => {
+  const [content, setContent] = useState(task?.content);
+  const {editTask} = dataStore();
+    const [formData, setFormData] = useState({
+        title: task?.title,
+        state: task.state,
+        dueDate:task.dueDate
+      });
+    const handleChange = (e) => {
         setFormData({
           ...formData,
           [e.target.name]: e.target.value
@@ -24,38 +22,32 @@ const Modal = ({ isOpen, onClose }) => {
       const handleContentChance = (value) => {
         setContent(value);
       };
-      
-      const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const data={
-          id:tasks.length+1,
           title: formData.title,
           dueDate: formData.dueDate,
           content: content,
           state: 'PLANED'
         }
-      // console.log("data:",data)
-        // console.log("formData:",formData)
-       addTask(data)
+        editTask(task.id, data);
         setFormData({
-            title: '',
-            dueDate:'',
-            state: 'PLANED'
+            title: "",
+            state: ""
           });
-          setContent('')
+          setContent("")
         onClose(); 
       };
-     
   return (
     <>
       {isOpen && (
-        <div className='fixed z-10 inset-0 overflow-y-auto flex items-center justify-center'>
+        <div className='fixed z-10 inset-0 overflow-y-auto flex items-center justify-center cursor-default '>
           <div className='fixed inset-0 transition-opacity opacity-100 ' onClick={onClose}>
             <div className='absolute inset-0 bg-black opacity-80 '></div>
           </div>
           <div className='bg-white rounded-lg p-8 lg:w-full lg:mx-28 w-96 mx-auto z-50 opacity-100 '>
             <div className='text-center'>
-              <h2 className='text-lg font-semibold mb-4'>Create Task</h2>
+              <h2 className='text-lg font-semibold mb-4'>Edit Task</h2>
               <div>
               <form onSubmit={handleSubmit}>
               <div className='mb-4'>
@@ -71,10 +63,9 @@ const Modal = ({ isOpen, onClose }) => {
                   onChange={handleChange}
                   required
                 />
-                 
               </div>
-              <div className=" my-2 w-full ">
-            <Tiptap
+              <div className=" my-2 w-full cursor-text ">
+            <EditTipTap
               content={content}
               onChange={(newContent) => handleContentChance(newContent)}
             />
@@ -82,7 +73,7 @@ const Modal = ({ isOpen, onClose }) => {
               <span className="text-sm text-red-500 ">Story is required</span>
             )} */}
           </div>
-              <div className='mb-4 '>
+          <div className='mb-4 '>
               <label htmlFor='Due date' className= ' text-left block text-sm font-medium text-gray-700'>
               Due date
                 </label>
@@ -118,7 +109,7 @@ const Modal = ({ isOpen, onClose }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Modal;
+export default EditForm

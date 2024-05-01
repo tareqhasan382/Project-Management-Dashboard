@@ -3,8 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectMongodb } from "../../../../../lib/mongodb";
 import UserModel from "../../../../../lib/models/UserModel";
-// import { connectMongodb } from "../../../../../lib/mongodb";
-// import UserModel from "../../../../../lib/models/UserModel";
 
 export const authOptions = {
   providers: [
@@ -16,12 +14,12 @@ export const authOptions = {
       },
 
       async authorize(credentials) {
-        // console.log("credentials data:", credentials);
         try {
           await connectMongodb();
           if (!credentials) return null;
           const { email, password } = credentials;
-          const user = await UserModel.findOne({ email });
+
+          const user = await UserModel.findOne({ email: email });
 
           if (!user) return null;
 
