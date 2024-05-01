@@ -3,3 +3,22 @@
 @tailwind utilities;
 
 
+.status{
+    font-size: small;
+    background-color: darkgray;
+    padding: 0.25rem;
+    border-radius: 5px;
+    width: auto;
+    font-weight: bold;
+}
+.PLANED{
+    background-color: #ede7e7;
+}
+.ONGOING{
+  background-color: rgb(11, 87, 44);
+  color: #ffff;
+}
+.DONE{
+background-color: rgb(243, 7, 7);
+color: #ffff;
+}
