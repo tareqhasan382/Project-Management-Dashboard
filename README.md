@@ -1,5 +1,7 @@
 # Project Management Dashboard
 
+![Dashboard Preview](https://i.ibb.co/mc4hhpn/Screenshot-3232.png)
+
 ## Project Overview
 
 This repository contains a project management dashboard developed using Next.js, Zustand for state management, and Tailwind CSS for styling. The dashboard provides features for authentication, project management, task management, and task filtering/search functionality.
